@@ -1,76 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ea905fc-c913-4633-aebb-48c29331b29f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.env" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/craco.config.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/css/style.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Data/DataTable.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Data/DataTableBody.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Data/DataTableHead.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Data/WithoutData.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Templates/AlertTemplate.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Templates/ConfirmTemplate.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/EditField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/ImageUpload.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/PhoneField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/UI/SearchField.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/confirm.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/hooks/redux.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/AuthLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/DataLayout..tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/EditLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/Header/Header.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/Header/HeaderUserMenu.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/MainLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/PageLayout.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/layouts/Sidebar/Sidebar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Auth/SignInPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Dashboard/DashboardPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Districts/DistrictsEditPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Districts/DistrictsPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/News/NewsEditPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/News/NewsPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/NotFound404.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Promotions/PromotionsEditPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Promotions/PromotionsPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Settings/Information/SettingInformationPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Settings/Order/SettingOrderPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Settlements/SettlementsEditPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Settlements/SettlementsPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Tariffs/Index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Users/UsersEditPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/pages/Users/UsersPage.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/AuthRouter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/Index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/routes/MainRouter.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/AsyncThunkService.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/services/confirm/ConfirmProvider.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/auth/AuthAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/auth/AuthSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/districts/DistrictsAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/districts/DistrictsSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/news/NewsAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/news/NewsSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/propmotions/PromotionsAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/propmotions/PromotionsSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/settings/SettingsAsync.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/settings/SettingsSlice.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/settlements/SettlementsAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/settlements/SettlementsSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/users/UsersAsync.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/store/users/UsersSlice.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/types/index.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/api.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/constants.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/media.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/redux.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/theme.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/validators/configs.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/utils/validators/index.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
-    </list>
+    <list default="true" id="2ea905fc-c913-4633-aebb-48c29331b29f" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -87,7 +18,7 @@
     </option>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -143,7 +74,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667556412796</updated>
-      <workItem from="1667556414096" duration="151065000" />
+      <workItem from="1667556414096" duration="151669000" />
     </task>
     <servers />
   </component>
