@@ -1,0 +1,10 @@
+@import '_reset';
+@import '_variables';
+
+
+body {
+  background: $grey-light;
+}
+#root {
+  height: 100vh;
+}

@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "baseUrl": "./src",
+    "paths": {
+      "@/components/*" : ["./components/*"],
+      "@/assets/*" : ["./assets/*"],
+      "@/hooks/*" : ["./hooks/*"],
+      "@/layouts/*" : ["./layouts/*"],
+      "@/pages/*" : ["./pages/*"],
+      "@/routes/*" : ["./routes/*"],
+      "@/store/*" : ["./store/*"],
+      "@/types/*" : ["./types/*"],
+      "@/services/*" : ["./services/*"],
+      "@/utils/*" : ["./utils/*"]
+    }
+  }
+}

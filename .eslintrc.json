@@ -1,0 +1,55 @@
+{
+    "env": {
+        "browser": true,
+        "es2021": true
+    },
+    "extends": [
+        "plugin:react/recommended",
+        "standard-with-typescript",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking"
+    ],
+    "settings": {
+        "import/resolver": {
+            "typescript": {}
+        }
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": "./tsconfig.json",
+        "tsconfigRootDir": "./"
+    },
+    "plugins": [
+        "react",
+        "@typescript-eslint",
+        "import"
+    ],
+    "rules": {
+        "@typescript-eslint/strict-boolean-expressions": 0,
+        "no-extra-semi": "error",
+        "semi": "off",
+        "@typescript-eslint/semi": ["error", "always"],
+        "react/jsx-first-prop-new-line": ["error", "multiline"],
+        "react/jsx-max-props-per-line": ["error", { "maximum": 1, "when": "multiline" }],
+        "react/jsx-indent-props": ["error", 2],
+        "react/jsx-closing-bracket-location": ["error", "tag-aligned"],
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-var-requires": "off",
+        "@typescript-eslint/explicit-function-return-type": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-unsafe-return": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/restrict-template-expressions": "off",
+        "@typescript-eslint/promise-function-async": "off",
+        "@typescript-eslint/no-misused-promises": "off",
+        "@typescript-eslint/return-await": "off",
+        "@typescript-eslint/no-explicit-any": "off",
+        "react/react-in-jsx-scope": "off",
+        "prefer-regex-literals": "off",
+        "no-useless-escape": "off",
+        "@typescript-eslint/no-redeclare": "off",
+        "@typescript-eslint/no-unsafe-argument": "off"
+    }
+}
