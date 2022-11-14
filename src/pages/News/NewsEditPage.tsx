@@ -13,6 +13,9 @@ import ImageUpload from '@/components/UI/ImageUpload';
 import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/news/NewsSlice';
+import { Editor } from 'react-draft-wysiwyg';
+import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 
 const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -21,19 +24,21 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
   const dispatch = useAppDispatch();
   const [fields, formData] = useForm({
     title: validatorText,
-    annonce: validatorText,
-    description: validatorText
+    annonce: validatorText
   });
 
-  const { title, annonce, description } = fields;
+  const { title, annonce } = fields;
 
   const [imageURL, updateImageURL] = useState('');
+  const [description, updateDescription] = useState(EditorState.createEmpty());
   const [image, updateImage] = useState(null);
 
   const { item, status, error } = useAppSelector(state => state.news);
   const news = item as INews;
 
   const { id } = params;
+
+  const normalDescription = () => draftToHtml(convertToRaw(description.getCurrentContent()));
 
   useEffect(() => {
     return () => {
@@ -48,7 +53,15 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
 
     useEffect(() => {
       if (news.title) title.setValue(news.title);
-      if (news.description) description.setValue(news.description);
+      if (news.description) {
+        const blocksFromHTML = convertFromHTML(news.description);
+        const state = ContentState.createFromBlockArray(
+          blocksFromHTML.contentBlocks,
+          blocksFromHTML.entityMap
+        );
+
+        updateDescription(EditorState.createWithContent(state));
+      }
       if (news.annonce) annonce.setValue(news.annonce);
       if (news.image) updateImageURL(news.image);
     }, [news]);
@@ -62,7 +75,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     const body = new FormData();
 
     body.append('title', title.value);
-    body.append('description', description.value);
+    body.append('description', normalDescription());
     body.append('annonce', annonce.value);
     body.append('image', image || imageURL);
 
@@ -81,7 +94,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
   const editDataIsValid = () => {
     return title.value === news.title &&
       annonce.value === news.annonce &&
-      description.value === news.description &&
+      // normalDescription() === news.description &&
       imageURL === news.image;
   };
 
@@ -117,12 +130,27 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
           onChange={(val: string) => annonce.setValue(val)}
           disabled={status === STATUS.PENDING}
         />
-        <EditField
-          label="Статья"
-          placeholder="Статья..."
-          value={description.value || ''}
-          onChange={(val: string) => description.setValue(val)}
-          disabled={status === STATUS.PENDING}
+        <Editor
+          editorState={description}
+          wrapperClassName="text-editor-wrapper"
+          editorClassName="text-editor-canvas"
+          onEditorStateChange={(editorState) => updateDescription(editorState)}
+          toolbar={{
+            options: ['blockType', 'image'],
+            blockType: {
+              inDropdown: false,
+              options: ['H3']
+            },
+            image: {
+              urlEnabled: true,
+              uploadEnabled: true,
+              alignmentEnabled: true,
+              previewImage: false,
+              inputAccept: 'image/gif,image/jpeg,image/jpg,image/png,image/svg',
+              alt: { present: false, mandatory: false },
+              defaultSize: 'auto'
+            }
+          }}
         />
       </EditLayout>
     </PageLayout>

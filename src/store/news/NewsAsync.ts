@@ -1,13 +1,9 @@
 import AsyncThunkService from '@/services/AsyncThunkService';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { $axios } from '@/utils/api';
+import { IFormDataUpdate } from '@/types/index';
 
 const api = new AsyncThunkService('/news', 'news');
-
-interface INewsUpdate {
-  id: string
-  body: FormData
-}
 
 export const newsFetch = api.fetchAll();
 export const newsCreateOne = createAsyncThunk(
@@ -24,7 +20,7 @@ export const newsCreateOne = createAsyncThunk(
 export const newsDeleteOne = api.delete();
 export const newsUpdateOne = createAsyncThunk(
   'news/update',
-  async ({ id, body }: INewsUpdate, { rejectWithValue }) => {
+  async ({ id, body }: IFormDataUpdate, { rejectWithValue }) => {
     try {
       await $axios.put(`/news/${id}`, body);
     } catch (e) {

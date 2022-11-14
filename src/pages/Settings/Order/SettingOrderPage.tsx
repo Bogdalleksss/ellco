@@ -53,7 +53,7 @@ const SettingOrderPage: React.FC = (): JSX.Element => {
 
   return (
     <PageLayout
-      title="Настройки информации"
+      title="Настройки заказа"
       type="edit"
     >
       <EditLayout
@@ -63,6 +63,7 @@ const SettingOrderPage: React.FC = (): JSX.Element => {
       >
         <EditField
           label="Цена для частного сектора"
+          type="number"
           placeholder="00.00"
           value={pricePrivate.value || ''}
           onChange={(val: string) => pricePrivate.setValue(val)}
@@ -70,6 +71,7 @@ const SettingOrderPage: React.FC = (): JSX.Element => {
         />
         <EditField
           label="Цена для многоквартирного дома"
+          type="number"
           placeholder="00.00"
           value={priceApartment.value || ''}
           onChange={(val: string) => priceApartment.setValue(val)}

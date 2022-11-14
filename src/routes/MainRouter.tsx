@@ -19,16 +19,20 @@ import DistrictsPage from '@/pages/Districts/DistrictsPage';
 import DistrictsEditPage from '@/pages/Districts/DistrictsEditPage';
 import SettingInformationPage from '@/pages/Settings/Information/SettingInformationPage';
 import SettingOrderPage from '@/pages/Settings/Order/SettingOrderPage';
+import TariffsPage from '@/pages/Tariffs/TariffsPage';
+import TariffsEditPage from '@/pages/Tariffs/TariffsEditPage';
+import OrdersPage from '@/pages/Orders/OrdersPage';
+import SettingCCTVPage from '@/pages/Settings/CCTV/SettingCCTVPage';
 
 const MainRouter: React.FC = (): JSX.Element => {
   return (
     <MainLayout>
       <Switch>
-         <Route exact path="/">
-          <DashboardPage />
-         </Route>
+         {/* <Route exact path="/"> */}
+         {/* <DashboardPage /> */}
+         {/* </Route> */}
 
-        <Route exact path="/users">
+        <Route exact path="/">
            <UsersPage />
         </Route>
         <Route exact path="/users/create">
@@ -46,6 +50,13 @@ const MainRouter: React.FC = (): JSX.Element => {
         </Route>
         <Route exact path="/news/:id/edit">
           <NewsEditPage type="EDIT" />
+        </Route>
+
+        <Route exact path="/orders">
+          <OrdersPage />
+        </Route>
+        <Route exact path="/orders/:id">
+          <NewsEditPage type="CREATE" />
         </Route>
 
         <Route exact path="/promotions">
@@ -78,11 +89,24 @@ const MainRouter: React.FC = (): JSX.Element => {
           <SettlementsEditPage type="EDIT" />
         </Route>
 
+        <Route exact path="/tariffs">
+          <TariffsPage />
+        </Route>
+        <Route exact path="/tariffs/create">
+          <TariffsEditPage type="CREATE" />
+        </Route>
+        <Route exact path="/tariffs/:id/edit">
+          <TariffsEditPage type="EDIT" />
+        </Route>
+
         <Route exact path="/settings/information">
           <SettingInformationPage />
         </Route>
         <Route exact path="/settings/order">
           <SettingOrderPage />
+        </Route>
+        <Route exact path="/settings/cctv">
+          <SettingCCTVPage />
         </Route>
 
         <Route path="*">

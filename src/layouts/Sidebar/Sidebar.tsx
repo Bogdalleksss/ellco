@@ -1,7 +1,7 @@
 import * as React from 'react';
 import {
   Box,
-  Collapse,
+  Collapse, Divider,
   Drawer,
   List,
   ListItem,
@@ -22,6 +22,8 @@ import {
   PriceChange,
   Settings
 } from '@mui/icons-material';
+import CameraOutdoorIcon from '@mui/icons-material/CameraOutdoor';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
 import { NavLink } from 'react-router-dom';
 import { grey } from '@mui/material/colors';
 import { useState } from 'react';
@@ -40,8 +42,14 @@ const routes = [
   {
     id: 1,
     title: 'Пользователи',
-    link: '/users',
+    link: '/',
     Icon: (props) => <People {...props} />
+  },
+  {
+    id: 8,
+    title: 'Заказы',
+    link: '/orders',
+    Icon: (props) => <ShoppingCartCheckoutIcon {...props} />
   },
   {
     id: 6,
@@ -55,12 +63,12 @@ const routes = [
     link: '/promotions',
     Icon: (props) => <Discount {...props} />
   },
-  // {
-  //   id: 4,
-  //   title: 'Тарифы',
-  //   link: '/tariffs',
-  //   Icon: (props) => <AttachMoney {...props} />
-  // },
+  {
+    id: 4,
+    title: 'Тарифы',
+    link: '/tariffs',
+    Icon: (props) => <AttachMoney {...props} />
+  },
   {
     id: 7,
     title: 'Районы',
@@ -87,6 +95,12 @@ const settings = [
     title: 'Заказ',
     link: '/order',
     Icon: (props) => <PriceChange {...props} />
+  },
+  {
+    id: 103,
+    title: 'Видеонаблюдение',
+    link: '/cctv',
+    Icon: (props) => <CameraOutdoorIcon {...props} />
   }
 ];
 
@@ -147,6 +161,11 @@ const Sidebar: React.FC<IProps> = ({ width = 200 }: IProps): JSX.Element => {
               );
             })
           }
+          <Divider
+            sx={{
+              my: 1.2
+            }}
+          />
           <ListItemButton onClick={() => updateShowSettings(!showSetting)}>
             <ListItemIcon>
               <Settings sx={{ color: '#000000' }} />

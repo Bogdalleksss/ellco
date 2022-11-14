@@ -42,7 +42,7 @@ const SettingInformationPage: React.FC = (): JSX.Element => {
   const onSave = () => {
     const body: IInformationBody = {
       email: email.value,
-      phone: phone.value
+      phone: phone.value.replaceAll(' ', '')
       // .replace(/\(|\)|\s/g, '')
     };
 

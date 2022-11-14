@@ -3,6 +3,7 @@ import { Box, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
 
 interface IProps {
+  type?: string
   label: string
   placeholder: string
   value: string
@@ -10,7 +11,7 @@ interface IProps {
   disabled: boolean
 }
 
-const EditField: React.FC<IProps> = ({ label, value, onChange, placeholder, disabled }: IProps): JSX.Element => {
+const EditField: React.FC<IProps> = ({ type = 'text', label, value, onChange, placeholder, disabled }: IProps): JSX.Element => {
   return (
     <Box>
       <Typography
@@ -22,6 +23,7 @@ const EditField: React.FC<IProps> = ({ label, value, onChange, placeholder, disa
         { label }
       </Typography>
       <TextField
+        type={type}
         placeholder={placeholder}
         fullWidth
         value={value}

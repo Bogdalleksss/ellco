@@ -8,3 +8,82 @@ body {
 #root {
   height: 100vh;
 }
+
+.chips-field {
+  .chip {
+    &-input {
+      &-wrapper {
+        min-height: 56px !important;
+        position: relative;
+
+        &__input {
+          padding: 0 !important;
+          margin: 0 !important;
+          &-root {
+            padding: 12px 14px !important;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+          }
+        }
+
+        &__chip {
+          margin: 0 !important;
+        }
+      }
+    }
+  }
+}
+
+.text-editor {
+  &-wrapper {
+    border: 1px solid rgba(198, 198, 198, 0.87);
+    border-radius: 8px;
+
+    .rdw-editor-toolbar {
+      padding: 8px;
+      border: none;
+      border-bottom: 1px solid rgba(198, 198, 198, 0.87);
+      background: transparent;
+
+      .rdw-inline-wrapper, .rdw-image-wrapper {
+        margin: 0;
+      }
+
+      .rdw-option-wrapper {
+        width: 30px;
+        height: 30px;
+        box-shadow: none !important;
+        font-family: sans-serif;
+        border-radius: 8px;
+        border: 1px solid rgba(215, 215, 215, 0.87);
+
+        &.rdw-option-active {
+          background: $blue;
+          color: #FFFFFF;
+        }
+      }
+    }
+  }
+
+  &-canvas {
+    max-height: 250px;
+    min-height: 100px;
+    height: auto;
+    overflow: auto;
+    padding-left: 12px;
+    padding-right: 12px;
+    .rdw-image-imagewrapper {
+      img {
+        max-width: 100%;
+      }
+    }
+    * {
+      font-family: sans-serif;
+    }
+
+    h3 {
+      font-size: 24px;
+    }
+  }
+}

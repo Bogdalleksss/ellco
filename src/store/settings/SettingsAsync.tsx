@@ -11,13 +11,18 @@ export interface IOrderSettingsBody {
   priceApartment: string
 }
 
+export interface ICCTVSettingBody {
+  recordKeepDays: string
+  camsForBuy: string
+}
+
 export const fetchInformation = createAsyncThunk(
   'settings/information/fetch',
   async (_, { rejectWithValue }) => {
     try {
       const { data } = await $axios.get('/information');
 
-      return data[0];
+      return data;
     } catch (e) {
       const { message } = e.response.data;
       return rejectWithValue(message || e.message);
@@ -45,7 +50,7 @@ export const fetchOrderSettings = createAsyncThunk(
     try {
       const { data } = await $axios.get('/settings/order');
 
-      return data[0];
+      return data;
     } catch (e) {
       const { message } = e.response.data;
       return rejectWithValue(message || e.message);
@@ -58,6 +63,34 @@ export const updateOrderSettings = createAsyncThunk(
   async (body: IOrderSettingsBody, { rejectWithValue }) => {
     try {
       const { data } = await $axios.put('/settings/order', body);
+
+      return data;
+    } catch (e) {
+      const { message } = e.response.data;
+      return rejectWithValue(message || e.message);
+    }
+  }
+);
+
+export const fetchCCTVSettings = createAsyncThunk(
+  'settings/cctv/fetch',
+  async (_, { rejectWithValue }) => {
+    try {
+      const { data } = await $axios.get('/settings/cctv');
+
+      return data;
+    } catch (e) {
+      const { message } = e.response.data;
+      return rejectWithValue(message || e.message);
+    }
+  }
+);
+
+export const updateCCTVSettings = createAsyncThunk(
+  'settings/cctv/update',
+  async (body: ICCTVSettingBody, { rejectWithValue }) => {
+    try {
+      const { data } = await $axios.put('/settings/cctv', body);
 
       return data;
     } catch (e) {

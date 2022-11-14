@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-export type pages = 'users' | 'news' | 'promotions' | 'districts' | 'settlements';
+export type pages = 'users' | 'news' | 'promotions' | 'districts' | 'settlements' | 'tariffs' | 'orders';
 
 export interface IUser {
   _id?: string
@@ -41,9 +41,53 @@ export interface ISettlement {
   _id?: string
   district: string
   title: string
-  tariffs: string
+  tariffs: string | string[]
   agent: string | null
   createdAt?: Date
+}
+
+export interface ITariff {
+  _id?: string
+  title: string
+  category?: string
+  type: string
+  tags?: string | string[]
+  price: number | null
+  newPrice?: number | null
+  firstMonthFree?: boolean
+  priceDisplayType?: string
+  speedMbs?: number | null
+  channelsCount?: number | null
+  mobileMinutsDagestan?: string
+  cityMinutsDagestan?: string
+  localTelephoneСonnectionsType?: string
+  firstMinutePrice?: number | null
+  externalServices?: string[] | string
+  kionServiceDescription?: string
+  mtsServiceDescription?: string
+  icon?: string
+  createdAt?: string
+}
+
+export interface IOrder {
+  _id?: string
+  fullName: string
+  phone: string
+  connectionAdress: string
+  connectionType: string
+  tariffs?: string[]
+  cctv: {
+    buyCams: boolean
+    recordKeepDays: number
+    camsCountTotal: number
+    camsForBuy: ICamForBy[]
+  }
+  createdAt: string
+}
+
+export interface ICamForBy {
+  name: string
+  count: number
 }
 
 export interface IPropsLayout {
@@ -72,11 +116,16 @@ export interface IPropsEdit {
 export interface IData {
   name: pages
   fields: IColumns[]
-  data: Array<IUser | INews | IPromotions | IDistricts>
+  data: Array<IUser | INews | IPromotions | IDistricts | ITariff | IOrder>
   onRemove: (id: string) => void
 }
 
 export interface IColumns {
   id: number
   name: string
+}
+
+export interface IFormDataUpdate {
+  id: string
+  body: FormData
 }

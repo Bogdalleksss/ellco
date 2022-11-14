@@ -7,8 +7,10 @@ import { Provider } from 'react-redux';
 import { transitions, positions, Provider as AlertProvider } from 'react-alert';
 import AlertTemplate from '@/components/Templates/AlertTemplate';
 import { store } from '@/store/index';
-import '@/assets/css/style.scss';
 import ConfirmProvider from '@/services/confirm/ConfirmProvider';
+
+import '@/assets/css/style.scss';
+import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 const options = {
   position: positions.TOP_CENTER,

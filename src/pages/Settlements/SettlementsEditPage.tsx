@@ -13,11 +13,12 @@ import {
   settlementsFetchOne,
   settlementsUpdateOne
 } from '@/store/settlements/SettlementsAsync';
-import { MenuItem, OutlinedInput, Select } from '@mui/material';
 import { districtsFetch } from '@/store/districts/DistrictsAsync';
 import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/settlements/SettlementsSlice';
+import SelectField from '@/components/UI/SelectField';
+import { tariffsFetch } from '@/store/tariffs/TariffsAsync';
 
 const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -28,18 +29,21 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     title: validatorText
   });
   const [district, updateDistrict] = useState<IDistricts>();
+  const [selectedTariffs, updateSelectedTariffs] = useState<string[]>([]);
   const [isPending, updateIsPending] = useState(false);
 
   const { title } = fields;
 
   const { item, status, error } = useAppSelector(state => state.settlements);
   const districts = useAppSelector(state => state.districts);
+  const tariffs = useAppSelector(state => state.tariffs);
 
   const settlement = item as ISettlement;
 
   const { id } = params;
 
   useEffect(() => {
+    dispatch(tariffsFetch());
     return () => {
       dispatch(clearMeta());
     };
@@ -58,6 +62,8 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     useEffect(() => {
       if (settlement.title) title.setValue(settlement.title);
       if (settlement.district) updateDistrict(getDistrictById(settlement.district));
+      if (
+        settlement.tariffs && Array.isArray(settlement.tariffs)) updateSelectedTariffs(settlement.tariffs);
     }, [settlement]);
   } else {
     useEffect(() => {
@@ -77,7 +83,7 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     const body: ISettlement = {
       title: title.value,
       district: district._id,
-      tariffs: 'tariff',
+      tariffs: selectedTariffs.join(','),
       agent: null
     };
 
@@ -97,6 +103,10 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     return districts.items.find(item => item._id === _id);
   };
 
+  const getTariffsTitle = () => {
+    return selectedTariffs.map(item => tariffs.items.find(tariff => tariff._id === item)?.title);
+  };
+
   return (
     <PageLayout
       title="Редактирование населенного пункта"
@@ -105,43 +115,38 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
       <EditLayout
         onSave={onSave}
         pending={isPending}
-        isValid={formData.isValid && !!district}
+        isValid={formData.isValid && !!district && !!selectedTariffs.length}
       >
         <EditField
           label="Название населенного пункта"
           placeholder="Населенный пункт"
           value={title.value || ''}
-          onChange={(val: string) => title.setValue(val)}
+          onChange={val => title.setValue(val)}
           disabled={isPending}
         />
-        <Select
-          displayEmpty
-          value={district?._id || ''}
-          disabled={isPending}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (!selected) {
-              return <em style={{ opacity: 0.4 }}>Выберите район</em>;
-            }
-
-            return district?.title;
+        <SelectField
+          data={{
+            renderValue: district?.title || '',
+            list: districts.items
           }}
-          onChange={(event) => updateDistrict(getDistrictById(event.target.value))}
-        >
-          <MenuItem disabled value="">
-            <em>Выберите район</em>
-          </MenuItem>
-            {
-              districts.items.map(itemDistrict => (
-                <MenuItem
-                  key={itemDistrict._id}
-                  value={itemDistrict._id}
-                >
-                  {itemDistrict.title}
-                </MenuItem>
-              ))
-            }
-          </Select>
+          value={district?._id || ''}
+          label="Выберите район"
+          placeholder="Район не выбран"
+          onChange={val => updateDistrict(getDistrictById(val))}
+          disabled={isPending}
+        />
+        <SelectField
+          data={{
+            renderValue: getTariffsTitle()?.join(', ') || '',
+            list: tariffs.items
+          }}
+          multiple
+          value={selectedTariffs || []}
+          label="Выберите тарифы"
+          placeholder="Тарифы не выбраны"
+          onChange={val => updateSelectedTariffs(val)}
+          disabled={isPending}
+        />
       </EditLayout>
     </PageLayout>
   );

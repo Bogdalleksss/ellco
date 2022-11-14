@@ -1,7 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2ea905fc-c913-4633-aebb-48c29331b29f" name="Changes" comment="" />
+    <list default="true" id="2ea905fc-c913-4633-aebb-48c29331b29f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/components/UI/ChipsField.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Orders/OrderInfoPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Orders/OrdersPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Settings/CCTV/SettingCCTVPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Tariffs/TariffsEditPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/pages/Tariffs/TariffsPage.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/tariffs/TariffsAsync.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/store/tariffs/TariffsSlice.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/css/style.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/assets/css/style.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/EditField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/EditField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/UI/PhoneField.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/PhoneField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/DataLayout..tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/DataLayout..tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/EditLayout.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/EditLayout.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/layouts/Sidebar/Sidebar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/layouts/Sidebar/Sidebar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/News/NewsEditPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/News/NewsEditPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Promotions/PromotionsEditPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Promotions/PromotionsEditPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Settings/Information/SettingInformationPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Settings/Information/SettingInformationPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Settings/Order/SettingOrderPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Settings/Order/SettingOrderPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Settlements/SettlementsEditPage.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/pages/Settlements/SettlementsEditPage.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Tariffs/Index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/UI/SelectField.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/routes/MainRouter.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/MainRouter.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/news/NewsAsync.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/news/NewsAsync.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/settings/SettingsAsync.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/settings/SettingsAsync.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/store/settings/SettingsSlice.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/store/settings/SettingsSlice.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/index.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/index.d.ts" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -12,13 +43,21 @@
       <list>
         <option value="SCSS File" />
         <option value="JavaScript File" />
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
+    </option>
+  </component>
+  <component name="Git.Pull.Settings">
+    <option name="OPTIONS">
+      <set>
+        <option value="REBASE" />
+      </set>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
   <component name="GitSEFilterConfiguration">
     <file-type-list>
@@ -39,7 +78,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="js.linters.configure.manually.selectedeslint" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/Settings/Order" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/pages/Settings" />
     <property name="list.type.of.created.stylesheet" value="SCSS" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
@@ -47,16 +86,16 @@
     <property name="node.js.selected.package.standard" value="" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="settings.editor.selected.configurable" value="editing.templates" />
-    <property name="ts.external.directory.path" value="$PROJECT_DIR$/node_modules/typescript/lib" />
+    <property name="ts.external.directory.path" value="$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/pages/Settings/Order" />
-      <recent name="$PROJECT_DIR$/src/components/UI" />
-      <recent name="$PROJECT_DIR$/src/pages" />
+      <recent name="$PROJECT_DIR$/src/pages/Settings" />
       <recent name="$PROJECT_DIR$/src/store" />
-      <recent name="$PROJECT_DIR$/src/pages/Stocks" />
+      <recent name="$PROJECT_DIR$/src/pages" />
+      <recent name="$PROJECT_DIR$/src/components/UI" />
+      <recent name="$PROJECT_DIR$/src/pages/Settings/Order" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/pages/Districts" />
@@ -74,7 +113,9 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1667556412796</updated>
-      <workItem from="1667556414096" duration="151669000" />
+      <workItem from="1667556414096" duration="187157000" />
+      <workItem from="1668364609223" duration="3220000" />
+      <workItem from="1668428561390" duration="6233000" />
     </task>
     <servers />
   </component>
@@ -94,6 +135,7 @@
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

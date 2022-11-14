@@ -16,7 +16,8 @@ const EditLayout: React.FC<IProps> = ({ children, onSave, pending, isValid = tru
     <Grid>
       <Grid
         sx={{
-          display: 'grid',
+          display: 'flex',
+          flexDirection: 'column',
           gap: 2,
           marginBottom: 4,
           maxWidth: '600px'

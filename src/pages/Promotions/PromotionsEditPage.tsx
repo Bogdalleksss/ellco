@@ -64,6 +64,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     body.append('title', title.value);
     body.append('description', description.value);
     body.append('annonce', annonce.value);
+    body.append('tariffs', '');
     body.append('image', image || imageURL);
 
     if (type === 'EDIT') {

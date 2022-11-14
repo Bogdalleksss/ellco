@@ -14,7 +14,7 @@ interface IProps {
   fields: IColumns[]
   onFetch: () => void
   onSearch: (val: string) => void
-  onDelete: (val: string) => void
+  onDelete?: (val: string) => void
 }
 
 const DataLayout: React.FC<IProps> = ({ name, title, fields, onFetch, onSearch, onDelete }: IProps): JSX.Element => {
