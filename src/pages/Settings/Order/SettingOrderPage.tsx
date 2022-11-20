@@ -1,7 +1,7 @@
 import * as React from 'react';
 import PageLayout from '@/layouts/PageLayout';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import useForm from 'react-hooks-form-validator';
 import { validatorPrice } from '@/utils/validators';
 import { useEffect } from 'react';

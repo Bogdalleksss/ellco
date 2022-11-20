@@ -36,7 +36,7 @@ const SelectField: React.FC<IProps> = ({ data, value, label, placeholder, onChan
         input={<OutlinedInput />}
         fullWidth
         renderValue={(selected) => {
-          if (!selected || !selected.length) {
+          if (!selected || (Array.isArray(selected) && !selected.length)) {
             return <em style={{ opacity: 0.4 }}>{ placeholder }</em>;
           }
 

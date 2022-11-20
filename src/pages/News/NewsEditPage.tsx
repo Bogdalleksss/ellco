@@ -5,17 +5,19 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { INews, IPropsEdit } from '@/types/index';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import { STATUS } from '@/utils/constants';
 import { useAlert } from 'react-alert';
 import { newsCreateOne, newsFetchOne, newsUpdateOne } from '@/store/news/NewsAsync';
-import ImageUpload from '@/components/UI/ImageUpload';
+import ImageUpload from '@/components/UI/Fields/ImageUpload';
 import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/news/NewsSlice';
 import { Editor } from 'react-draft-wysiwyg';
 import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
+
+// TODO Закодировать и декодировать HTML новости
 
 const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();

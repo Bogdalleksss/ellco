@@ -10,13 +10,18 @@ import {
   updateOrderSettings
 } from '@/store/settings/SettingsAsync';
 
+export interface ICams {
+  name: string
+  pricePerMonth: number | string
+}
+
 interface ISettingsSlice extends IDefaultSlice {
   email: string
   phone: string
   pricePrivate: string
   priceApartment: string
   recordKeepDays: string
-  camsForBuy: string
+  camsForBuy: ICams[]
 }
 
 const initialState: ISettingsSlice = {
@@ -25,7 +30,7 @@ const initialState: ISettingsSlice = {
   pricePrivate: '',
   priceApartment: '',
   recordKeepDays: '',
-  camsForBuy: '',
+  camsForBuy: [],
   status: null,
   error: null
 };
@@ -50,7 +55,7 @@ export const settingsSlice = createSlice({
     extraReducerBuild.addCases(fetchCCTVSettings, (state, { payload }) => {
       setSuccess(state);
       state.recordKeepDays = payload.recordKeepDays.join(',');
-      state.camsForBuy = payload.camsForBuy.join(',');
+      state.camsForBuy = payload.camsForBuy;
     });
 
     extraReducerBuild.addCases(updateInformation);

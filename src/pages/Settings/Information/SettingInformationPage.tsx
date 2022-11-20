@@ -1,10 +1,10 @@
 import * as React from 'react';
 import PageLayout from '@/layouts/PageLayout';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import useForm from 'react-hooks-form-validator';
 import { validatorEmail, validatorText } from '@/utils/validators';
-import PhoneField from '@/components/UI/PhoneField';
+import PhoneField from '@/components/UI/Fields/PhoneField';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { fetchInformation, IInformationBody, updateInformation } from '@/store/settings/SettingsAsync';

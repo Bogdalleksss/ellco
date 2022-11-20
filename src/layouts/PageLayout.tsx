@@ -3,7 +3,7 @@ import { Box, Button, Grid, Typography } from '@mui/material';
 import { IPropsLayout } from '@/types/index';
 import { Add, Cached } from '@mui/icons-material';
 import { Link } from 'react-router-dom';
-import SearchField from '@/components/UI/SearchField';
+import SearchField from '@/components/UI/Fields/SearchField';
 
 interface IProps extends IPropsLayout {
   title?: string

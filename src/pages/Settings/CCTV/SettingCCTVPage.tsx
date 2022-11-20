@@ -10,13 +10,15 @@ import {
 } from '@/store/settings/SettingsAsync';
 import { useAlert } from 'react-alert';
 import { STATUS } from '@/utils/constants';
-import ChipsField from '@/components/UI/ChipsField';
+import ChipsField from '@/components/UI/Fields/ChipsField';
+import AddList from '@/components/UI/AddList';
+import { ICams } from '@/store/settings/SettingsSlice';
 
 const SettingCCTVPage: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
   const alert = useAlert();
   const [recordKeepDays, updateRecordKeepDays] = useState<string[]>([]);
-  const [camsForBuy, updateCamsForBuy] = useState<string[]>([]);
+  const [camsForBuy, updateCamsForBuy] = useState<ICams[]>([]);
 
   const settings = useAppSelector(state => state.settings);
 
@@ -26,7 +28,7 @@ const SettingCCTVPage: React.FC = (): JSX.Element => {
 
   useEffect(() => {
     if (settings.recordKeepDays) updateRecordKeepDays(settings.recordKeepDays.split(','));
-    if (settings.camsForBuy) updateCamsForBuy(settings.camsForBuy.split(','));
+    if (settings.camsForBuy) updateCamsForBuy(settings.camsForBuy);
   }, [settings.recordKeepDays, settings.camsForBuy]);
 
   useEffect(() => {
@@ -36,7 +38,8 @@ const SettingCCTVPage: React.FC = (): JSX.Element => {
   const onSave = () => {
     const body: ICCTVSettingBody = {
       recordKeepDays: recordKeepDays.join(','),
-      camsForBuy: camsForBuy.join(',')
+      pricePerDay: 0,
+      camsForBuy: camsForBuy.map(item => ({ ...item, pricePerMonth: +item.pricePerMonth }))
     };
 
     dispatch(updateCCTVSettings(body));
@@ -59,12 +62,13 @@ const SettingCCTVPage: React.FC = (): JSX.Element => {
           onChange={(val) => updateRecordKeepDays(val)}
           disabled={settings.status === STATUS.PENDING}
         />
-        <ChipsField
+        <AddList
           value={camsForBuy}
-          label="Названия камер"
-          placeholder="Добавьте камеру"
-          onChange={(val) => updateCamsForBuy(val)}
-          disabled={settings.status === STATUS.PENDING}
+          onChange={val => updateCamsForBuy(val)}
+          addModel={{
+            name: '',
+            pricePerMonth: 0
+          }}
         />
       </EditLayout>
     </PageLayout>

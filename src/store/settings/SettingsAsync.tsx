@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { $axios } from '@/utils/api';
+import { ICams } from '@/store/settings/SettingsSlice';
 
 export interface IInformationBody {
   email: string
@@ -13,7 +14,8 @@ export interface IOrderSettingsBody {
 
 export interface ICCTVSettingBody {
   recordKeepDays: string
-  camsForBuy: string
+  pricePerDay: number
+  camsForBuy: ICams[]
 }
 
 export const fetchInformation = createAsyncThunk(

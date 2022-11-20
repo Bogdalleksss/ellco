@@ -11,6 +11,9 @@ import ConfirmProvider from '@/services/confirm/ConfirmProvider';
 
 import '@/assets/css/style.scss';
 import '../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import 'primereact/resources/themes/lara-light-indigo/theme.css';
+import 'primereact/resources/primereact.min.css';
+import 'primeicons/primeicons.css';
 
 const options = {
   position: positions.TOP_CENTER,

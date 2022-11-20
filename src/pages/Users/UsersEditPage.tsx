@@ -6,7 +6,7 @@ import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { userCreateOne, usersFetchOne, usersUpdateOne } from '@/store/users/UsersAsync';
 import { IPropsEdit, ISignIn, IUser } from '@/types/index';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import useForm from 'react-hooks-form-validator';
 import { STATUS } from '@/utils/constants';
 import { useAlert } from 'react-alert';

@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { IDistricts, IPropsEdit, ISettlement } from '@/types/index';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import { STATUS } from '@/utils/constants';
 import { useAlert } from 'react-alert';
 import {
@@ -17,7 +17,7 @@ import { districtsFetch } from '@/store/districts/DistrictsAsync';
 import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/settlements/SettlementsSlice';
-import SelectField from '@/components/UI/SelectField';
+import SelectField from '@/components/UI/Fields/SelectField';
 import { tariffsFetch } from '@/store/tariffs/TariffsAsync';
 
 const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {

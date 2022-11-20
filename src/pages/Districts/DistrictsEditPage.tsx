@@ -5,7 +5,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { IDistricts, IPropsEdit } from '@/types/index';
 import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/EditField';
+import EditField from '@/components/UI/Fields/EditField';
 import { STATUS } from '@/utils/constants';
 import { useAlert } from 'react-alert';
 import { districtsCreateOne, districtsFetchOne, districtsUpdateOne } from '@/store/districts/DistrictsAsync';

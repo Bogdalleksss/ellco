@@ -8,6 +8,42 @@ body {
 #root {
   height: 100vh;
 }
+.p-chips {
+  min-width: 100%;
+  min-height: 56px !important;
+  position: relative;
+
+  .p-chips-multiple-container:not(.p-disabled) {
+    &.p-focus {
+      box-shadow: none !important;
+      border-color: transparent !important;
+      //border-width: 2px;
+      outline: 2px solid $blue !important;
+      outline-offset: -2px !important;
+    }
+
+    &:not(.p-focus):hover {
+      border-color: $black !important;
+    }
+  }
+
+  .p-inputtext {
+    width: 100%;
+    row-gap: 8px;
+  }
+
+  &-token {
+    background: $grey !important;
+    color: $black !important;
+    border-radius: 50px !important;
+    padding: 8px 12px !important;
+    font-size: 14px !important;
+  }
+
+  &-input-token {
+
+  }
+}
 
 .chips-field {
   .chip {

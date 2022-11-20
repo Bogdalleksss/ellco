@@ -122,7 +122,8 @@ const Sidebar: React.FC<IProps> = ({ width = 200 }: IProps): JSX.Element => {
       <Box
         sx={{
           height: '100%',
-          p: 2
+          p: 2,
+          pt: 0
         }}
       >
         <List>

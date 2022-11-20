@@ -50,6 +50,7 @@
         "prefer-regex-literals": "off",
         "no-useless-escape": "off",
         "@typescript-eslint/no-redeclare": "off",
+        "@typescript-eslint/prefer-optional-chain": "off",
         "@typescript-eslint/no-unsafe-argument": "off"
     }
 }
