@@ -9,6 +9,8 @@ import { useAppSelector } from '@/hooks/redux';
 const DataTableBody: React.FC<IData> = ({ data, fields, onRemove, name, isInfo, isEdit = true, access }: IData): JSX.Element => {
   const me = useAppSelector(state => state.auth.me);
 
+  const notAdmin = access === 'administrator' && me.role !== 'administrator';
+
   return (
     <TableBody>
       {data.map((item) => (
@@ -48,19 +50,19 @@ const DataTableBody: React.FC<IData> = ({ data, fields, onRemove, name, isInfo, 
             }
             {
               isEdit &&
-                <Link to={access === me.role && `/${name}/${item._id}/edit`}>
+                <Link to={!notAdmin && `/${name}/${item._id}/edit`}>
                   <Button
                     sx={{
                       p: 1,
                       minWidth: 'auto'
                     }}
-                    disabled={access !== me.role}
+                    disabled={notAdmin}
                   >
                     <Edit
                       fontSize="small"
                       sx={{
                         color: grey[800],
-                        opacity: access !== me.role && '50%'
+                        opacity: notAdmin && '50%'
                       }}
                     />
                   </Button>
@@ -73,14 +75,14 @@ const DataTableBody: React.FC<IData> = ({ data, fields, onRemove, name, isInfo, 
                     p: 1,
                     minWidth: 'auto'
                   }}
-                  disabled={access !== me.role}
+                  disabled={notAdmin}
                   onClick={() => onRemove(item._id)}
                 >
                   <Delete
                     fontSize="small"
                     sx={{
                       color: red[400],
-                      opacity: access !== me.role && '50%'
+                      opacity: notAdmin && '50%'
                     }}
                   />
                 </Button>

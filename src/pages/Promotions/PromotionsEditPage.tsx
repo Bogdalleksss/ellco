@@ -68,14 +68,22 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     body.append('image', image || imageURL);
 
     if (type === 'EDIT') {
-      dispatch(promotionsUpdateOne({
+      await dispatch(promotionsUpdateOne({
         id,
         body
       }));
+
+      saveSuccess();
     } else if (type === 'CREATE') {
       await dispatch(promotionsCreateOne(body));
 
       if (!error) history.goBack();
+    }
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
     }
   };
 

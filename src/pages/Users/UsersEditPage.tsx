@@ -60,14 +60,22 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     if (password.value || type === 'CREATE') body.password = password.value.trim();
 
     if (type === 'EDIT') {
-      dispatch(usersUpdateOne({
+      await dispatch(usersUpdateOne({
         id,
         body
       }));
+
+      saveSuccess();
     } else if (type === 'CREATE') {
       await dispatch(userCreateOne(body));
 
       if (!error) history.goBack();
+    }
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
     }
   };
 

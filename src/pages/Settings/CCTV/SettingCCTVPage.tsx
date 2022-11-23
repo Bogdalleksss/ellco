@@ -23,6 +23,7 @@ const SettingCCTVPage: React.FC = (): JSX.Element => {
   const [pricePerDay, updatePricePerDay] = useState(0);
 
   const settings = useAppSelector(state => state.settings);
+  const { status } = settings;
 
   useEffect(() => {
     dispatch(fetchCCTVSettings());
@@ -38,14 +39,22 @@ const SettingCCTVPage: React.FC = (): JSX.Element => {
     if (settings.error) alert.error(settings.error);
   }, [settings.error]);
 
-  const onSave = () => {
+  const onSave = async () => {
     const body: ICCTVSettingBody = {
       recordKeepDays: recordKeepDays.join(','),
       pricePerDay,
       camsForBuy: camsForBuy.map(item => ({ ...item, pricePerMonth: +item.pricePerMonth }))
     };
 
-    dispatch(updateCCTVSettings(body));
+    await dispatch(updateCCTVSettings(body));
+
+    saveSuccess();
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
+    }
   };
 
   return (

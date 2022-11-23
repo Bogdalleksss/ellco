@@ -19,6 +19,7 @@ import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/settlements/SettlementsSlice';
 import SelectField from '@/components/UI/Fields/SelectField';
 import { tariffsFetch } from '@/store/tariffs/TariffsAsync';
+import { promotionsCreateOne } from '@/store/propmotions/PromotionsAsync';
 
 const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -88,15 +89,22 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     };
 
     if (type === 'EDIT') {
-      dispatch(settlementsUpdateOne({
+      await dispatch(settlementsUpdateOne({
         id,
         body
       }));
+      saveSuccess();
+    } else if (type === 'CREATE') {
+      await dispatch(settlementsCreateOne(body));
+
+      if (!error) history.goBack();
     }
+  };
 
-    await dispatch(settlementsCreateOne(body));
-
-    if (!error) history.goBack();
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
+    }
   };
 
   const getDistrictById = (_id) => {

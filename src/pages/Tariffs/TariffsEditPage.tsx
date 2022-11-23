@@ -152,14 +152,22 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
     };
 
     if (type === 'EDIT') {
-      dispatch(tariffsUpdateOne({
+      await dispatch(tariffsUpdateOne({
         id,
         body
       }));
+
+      saveSuccess();
     } else if (type === 'CREATE') {
       await dispatch(tariffsCreateOne(body));
 
       if (!error) history.goBack();
+    }
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
     }
   };
 

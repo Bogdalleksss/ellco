@@ -23,6 +23,7 @@ const SettingOrderPage: React.FC = (): JSX.Element => {
   });
 
   const settings = useAppSelector(state => state.settings);
+  const { status } = settings;
 
   const { priceApartment, pricePrivate } = fields;
 
@@ -42,13 +43,20 @@ const SettingOrderPage: React.FC = (): JSX.Element => {
     if (settings.error) alert.error(settings.error);
   }, [settings.error]);
 
-  const onSave = () => {
+  const onSave = async () => {
     const body: IOrderSettingsBody = {
       priceApartment: priceApartment.value,
       pricePrivate: pricePrivate.value
     };
 
-    dispatch(updateOrderSettings(body));
+    await dispatch(updateOrderSettings(body));
+    saveSuccess();
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
+    }
   };
 
   return (

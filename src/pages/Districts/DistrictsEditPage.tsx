@@ -53,14 +53,22 @@ const DistrictsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit):
     const body: IDistricts = { title: title.value };
 
     if (type === 'EDIT') {
-      dispatch(districtsUpdateOne({
+      await dispatch(districtsUpdateOne({
         id,
         body
       }));
+
+      saveSuccess();
     } else if (type === 'CREATE') {
       await dispatch(districtsCreateOne(body));
 
       if (!error) history.goBack();
+    }
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
     }
   };
 

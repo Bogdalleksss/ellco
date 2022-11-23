@@ -20,6 +20,7 @@ const SettingInformationPage: React.FC = (): JSX.Element => {
   });
 
   const settings = useAppSelector(state => state.settings);
+  const { status } = settings;
 
   const { email, phone } = fields;
 
@@ -39,14 +40,20 @@ const SettingInformationPage: React.FC = (): JSX.Element => {
     if (settings.error) alert.error(settings.error);
   }, [settings.error]);
 
-  const onSave = () => {
+  const onSave = async () => {
     const body: IInformationBody = {
       email: email.value,
       phone: phone.value.replaceAll(' ', '')
-      // .replace(/\(|\)|\s/g, '')
     };
 
-    dispatch(updateInformation(body));
+    await dispatch(updateInformation(body));
+    saveSuccess();
+  };
+
+  const saveSuccess = () => {
+    if (status === STATUS.SUCCESS) {
+      alert.success('Успешно сохранено!');
+    }
   };
 
   return (
