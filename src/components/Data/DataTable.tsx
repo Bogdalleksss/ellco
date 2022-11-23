@@ -36,7 +36,7 @@ const DataTable: React.FC<IData> = (props: IData): JSX.Element => {
         <DataTableHead columns={fields} />
         <DataTableBody
           { ...props }
-          onRemove={remove}
+          onRemove={onRemove && remove}
         />
       </Table>
     </TableContainer>

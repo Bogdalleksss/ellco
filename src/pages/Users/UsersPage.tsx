@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useAppDispatch } from '@/hooks/redux';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { userDeleteOne, usersFetch, usersSearch } from '@/store/users/UsersAsync';
 import DataLayout from '@/layouts/DataLayout.';
 import { useEffect } from 'react';
@@ -26,6 +26,7 @@ const fields = [
 
 const UsersPage: React.FC = (): JSX.Element => {
   const dispatch = useAppDispatch();
+  const me = useAppSelector(state => state.auth.me);
 
   useEffect(() => {
     return () => {
@@ -36,7 +37,9 @@ const UsersPage: React.FC = (): JSX.Element => {
   return (
     <DataLayout
       name="users"
+      access="administrator"
       title="Пользователи"
+      isAdd={me.role === 'administrator'}
       fields={fields}
       onFetch={() => dispatch(usersFetch())}
       onSearch={(search) => dispatch(usersSearch(search))}

@@ -9,12 +9,12 @@ import {
 import { ordersFetch, ordersFetchOne, ordersSearch } from '@/store/orders/OrdersAsync';
 
 export interface IOrdersSlice extends IDefaultSlice {
-  item: IOrder | object
+  item: IOrder
   items: IOrder[]
 }
 
 const initialState: IOrdersSlice = {
-  item: {},
+  item: null,
   items: [],
   status: null,
   error: null

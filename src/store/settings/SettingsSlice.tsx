@@ -21,6 +21,7 @@ interface ISettingsSlice extends IDefaultSlice {
   pricePrivate: string
   priceApartment: string
   recordKeepDays: string
+  pricePerDay: number
   camsForBuy: ICams[]
 }
 
@@ -30,6 +31,7 @@ const initialState: ISettingsSlice = {
   pricePrivate: '',
   priceApartment: '',
   recordKeepDays: '',
+  pricePerDay: 0,
   camsForBuy: [],
   status: null,
   error: null
@@ -56,6 +58,7 @@ export const settingsSlice = createSlice({
       setSuccess(state);
       state.recordKeepDays = payload.recordKeepDays.join(',');
       state.camsForBuy = payload.camsForBuy;
+      state.pricePerDay = payload.pricePerDay;
     });
 
     extraReducerBuild.addCases(updateInformation);

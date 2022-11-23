@@ -12,6 +12,7 @@ import { STATUS } from '@/utils/constants';
 import { useAlert } from 'react-alert';
 import { userSigInConfig } from '@/utils/validators/configs';
 import { clearMeta } from '@/store/users/UsersSlice';
+import { useSelector } from 'react-redux';
 
 const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -23,11 +24,15 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
   const { email, password } = fields;
 
   const { item, status, error } = useAppSelector(state => state.users);
+  const me = useAppSelector(state => state.auth.me);
+
   const user = item as IUser;
 
   const { id } = params;
 
   useEffect(() => {
+    if (me.role !== 'administrator') history.goBack();
+
     return () => {
       dispatch(clearMeta());
     };
@@ -74,7 +79,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
       <EditLayout
         onSave={onSave}
         pending={status === STATUS.PENDING}
-        isValid={formData.isValid && email.value !== user?.email}
+        isValid={formData.isValid}
       >
         <EditField
           label="Email"

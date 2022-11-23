@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Grid } from '@mui/material';
+import { Button, Grid, Typography } from '@mui/material';
 import AddListField from '@/components/UI/Fields/AddListField';
 import { Add } from '@mui/icons-material';
 import _ from 'lodash';
@@ -7,11 +7,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 interface IProps {
   value: any[]
+  placeholder?: string
   onChange: (val: any[]) => void
   addModel: any
 }
 
-const AddList: React.FC<IProps> = ({ value, onChange, addModel }: IProps): JSX.Element => {
+const IDs = [uuidv4(), uuidv4()];
+
+const AddList: React.FC<IProps> = ({ value, onChange, addModel, placeholder }: IProps): JSX.Element => {
   const changeValue = (idx, name, val) => {
     const newValue = _.cloneDeep(value);
     newValue[idx][name] = val;
@@ -23,18 +26,18 @@ const AddList: React.FC<IProps> = ({ value, onChange, addModel }: IProps): JSX.E
 
   const fieldsList = (item, idx) => [
     {
-      id: uuidv4(),
+      id: IDs[0],
       value: item.name,
       onChange: val => changeValue(idx, 'name', val),
       label: 'Название камеры',
       placeholder: 'Название'
     },
     {
-      id: uuidv4(),
+      id: IDs[1],
       value: item.pricePerMonth,
       onChange: val => changeValue(idx, 'pricePerMonth', val),
       type: 'number',
-      label: 'Цена камеры',
+      label: 'Цена камеры (месяц)',
       placeholder: '00.00'
     }
   ];
@@ -53,11 +56,14 @@ const AddList: React.FC<IProps> = ({ value, onChange, addModel }: IProps): JSX.E
       {
         value && value.map((item, idx) => (
           <AddListField
-            key={item.id}
+            key={idx}
             onRemove={() => remove(idx)}
             fields={fieldsList(item, idx)}
           />
         ))
+      }
+      {
+        !value.length && <Typography variant="body2" textAlign="center" sx={{ opacity: 0.5, pt: 0.5 }}>{ placeholder }</Typography>
       }
       <Button
         variant="outlined"

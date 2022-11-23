@@ -4,6 +4,7 @@ import EditField from '@/components/UI/Fields/EditField';
 import { Delete } from '@mui/icons-material';
 
 interface IField {
+  id: string
   label: string
   placeholder: string
   type?: string
@@ -25,7 +26,7 @@ const AddListField: React.FC<IProps> = ({ fields, disabled, onRemove }: IProps):
     >
       { fields.map(field => (
         <Box
-          key={field.label}
+          key={field.id}
           sx={{
             flex: 1
           }}

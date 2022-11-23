@@ -1,96 +1,173 @@
 import * as React from 'react';
 import PageLayout from '@/layouts/PageLayout';
-import { useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
+import { Box, Button, Divider, Grid, Typography } from '@mui/material';
+import { ArrowBack } from '@mui/icons-material';
+import { grey } from '@mui/material/colors';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { userCreateOne, usersFetchOne, usersUpdateOne } from '@/store/users/UsersAsync';
-import { IPropsEdit, ISignIn, IUser } from '@/types/index';
-import EditLayout from '@/layouts/EditLayout';
-import EditField from '@/components/UI/Fields/EditField';
-import useForm from 'react-hooks-form-validator';
-import { STATUS } from '@/utils/constants';
+import { ordersFetchOne } from '@/store/orders/OrdersAsync';
 import { useAlert } from 'react-alert';
-import { userSigInConfig } from '@/utils/validators/configs';
-import { clearMeta } from '@/store/users/UsersSlice';
+import { v4 as uuidv4 } from 'uuid';
+import { clearMeta } from '@/store/orders/OrdersSlice';
 
-const OrderInfoPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
+const OrderInfoPage: React.FC = (): JSX.Element => {
+  const dispatch = useAppDispatch();
   const params = useParams();
   const history = useHistory();
-  const alert = useAlert();
-  const dispatch = useAppDispatch();
-  const [fields, formData] = useForm(userSigInConfig(type === 'CREATE'));
-
-  const { email, password } = fields;
-
-  const { item, status, error } = useAppSelector(state => state.users);
-  const user = item as IUser;
-
   const { id } = params;
 
-  useEffect(() => {
-    return () => {
-      dispatch(clearMeta());
-    };
-  }, []);
+  const [data, updateData] = useState([]);
+  const [camsForBuy, updateCamsForBuy] = useState([]);
+  const order = useAppSelector(state => state.orders.item);
 
-  if (type === 'EDIT') {
-    useEffect(() => {
-      if (user?._id !== id) dispatch(usersFetchOne(id));
-    }, []);
-
-    useEffect(() => {
-      if (user.email) email.setValue(user.email);
-    }, [user]);
-  }
+  const alert = useAlert();
+  const { error } = useAppSelector(state => state.orders);
 
   useEffect(() => {
     if (error) alert.error(error);
   }, [error]);
 
-  const onSave = async () => {
-    const body: ISignIn = {
-      email: email.value.trim()
+  useEffect(() => {
+    dispatch(ordersFetchOne(id));
+    return () => {
+      dispatch(clearMeta());
     };
+  }, []);
 
-    if (password.value || type === 'CREATE') body.password = password.value.trim();
+  useEffect(() => {
+    const newData = [];
+    if (order) {
+      for (const key in order) {
+        if (key !== 'cctv') {
+          let value = order[key];
+          if (key === 'tariffs') value = JSON.stringify(order[key]);
+          newData.push({ id: uuidv4(), name: key, value });
+        } else {
+          for (const keyCCTV in order.cctv) {
+            if (keyCCTV !== 'camsForBuy') {
+              let value = order.cctv[keyCCTV];
+              if (keyCCTV === 'buyCams') value = value ? 'Да' : 'Нет';
+              newData.push({ id: uuidv4(), name: keyCCTV, value });
+            } else {
+              updateCamsForBuy(order.cctv.camsForBuy.map(cam => ({
+                id: uuidv4(),
+                name: cam.name,
+                value: cam.count
+              })));
+            }
+          }
+        }
+      }
 
-    if (type === 'EDIT') {
-      dispatch(usersUpdateOne({
-        id,
-        body
-      }));
-    } else if (type === 'CREATE') {
-      await dispatch(userCreateOne(body));
-
-      if (!error) history.goBack();
+      updateData(newData);
     }
-  };
+  }, [order]);
 
   return (
     <PageLayout
-      title={`${type === 'CREATE' ? 'Добавить' : 'Редактировать'} пользователя`}
-      type="edit"
+      title={`Заказ #${id}`}
     >
-      <EditLayout
-        onSave={onSave}
-        pending={status === STATUS.PENDING}
-        isValid={formData.isValid && email.value !== user?.email}
+      <Button
+        variant="outlined"
+        onClick={() => history.goBack()}
       >
-        <EditField
-          label="Email"
-          placeholder="example@gmail.com"
-          value={email.value || ''}
-          onChange={(val: string) => email.setValue(val)}
-          disabled={status === STATUS.PENDING}
+        <ArrowBack
+          fontSize="small"
+          sx={{
+            mr: 1
+          }}
         />
-        <EditField
-          label="Новый пароль"
-          placeholder="Password"
-          value={password.value || ''}
-          onChange={(val: string) => password.setValue(val)}
-          disabled={status === STATUS.PENDING}
-        />
-      </EditLayout>
+        Назад
+      </Button>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1.5,
+          marginBottom: 4,
+          mt: 4,
+          p: 2,
+          maxWidth: '700px',
+          border: 1,
+          borderRadius: 1,
+          borderColor: grey[300]
+        }}
+      >
+        {
+          data && data.map(dataItem => (
+            <Box key={dataItem.id}>
+              <Grid
+                container
+                justifyContent="space-between"
+                sx={{
+                  pb: 1.5
+                }}
+              >
+                <Grid
+                  container
+                  alignItems="center"
+                  gap={10}
+                  flex={1}
+                >
+                  <Typography
+                    variant="body2"
+                    fontSize={15}
+                    fontWeight="bold"
+                    minWidth="20%"
+                  >{ dataItem.name }</Typography>
+                  <Typography variant="body2" fontSize={15}>{ dataItem.value }</Typography>
+                </Grid>
+              </Grid>
+              <Divider />
+            </Box>
+          ))
+        }
+      </Box>
+      <Box
+        sx={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 1.5,
+          marginBottom: 4,
+          mt: 4,
+          p: 2,
+          maxWidth: '700px',
+          border: 1,
+          borderRadius: 1,
+          borderColor: grey[300]
+        }}
+      >
+        {
+          camsForBuy && camsForBuy.map(dataItem => (
+            <Box key={dataItem.id}>
+              <Grid
+                container
+                justifyContent="space-between"
+                sx={{
+                  pb: 1.5
+                }}
+              >
+                <Grid
+                  container
+                  alignItems="center"
+                  gap={10}
+                  flex={1}
+                >
+                  <Typography
+                    variant="body2"
+                    fontSize={15}
+                    fontWeight="bold"
+                    minWidth="20%"
+                  >{ dataItem.name }</Typography>
+                  <Typography variant="body2" fontSize={15}>{ dataItem.value }</Typography>
+                </Grid>
+              </Grid>
+              <Divider />
+            </Box>
+          ))
+        }
+      </Box>
     </PageLayout>
   );
 };

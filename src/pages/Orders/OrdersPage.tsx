@@ -8,15 +8,15 @@ import { ordersFetch, ordersSearch } from '@/store/orders/OrdersAsync';
 const fields = [
   {
     id: 0,
-    name: 'email'
+    name: 'fullName'
   },
   {
     id: 1,
-    name: 'displayName'
+    name: 'connectionType'
   },
   {
     id: 2,
-    name: 'role'
+    name: 'phone'
   },
   {
     id: 3,
@@ -38,6 +38,9 @@ const OrdersPage: React.FC = (): JSX.Element => {
       name="orders"
       title="Заказы"
       fields={fields}
+      isInfo={true}
+      isEdit={false}
+      isAdd={false}
       onFetch={() => dispatch(ordersFetch())}
       onSearch={(search) => dispatch(ordersSearch(search))}
     />

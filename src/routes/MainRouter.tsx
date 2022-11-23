@@ -23,6 +23,7 @@ import TariffsPage from '@/pages/Tariffs/TariffsPage';
 import TariffsEditPage from '@/pages/Tariffs/TariffsEditPage';
 import OrdersPage from '@/pages/Orders/OrdersPage';
 import SettingCCTVPage from '@/pages/Settings/CCTV/SettingCCTVPage';
+import OrderInfoPage from '@/pages/Orders/OrderInfoPage';
 
 const MainRouter: React.FC = (): JSX.Element => {
   return (
@@ -56,7 +57,7 @@ const MainRouter: React.FC = (): JSX.Element => {
           <OrdersPage />
         </Route>
         <Route exact path="/orders/:id">
-          <NewsEditPage type="CREATE" />
+          <OrderInfoPage />
         </Route>
 
         <Route exact path="/promotions">

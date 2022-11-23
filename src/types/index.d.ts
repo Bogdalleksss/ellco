@@ -115,9 +115,12 @@ export interface IPropsEdit {
 
 export interface IData {
   name: pages
+  access?: string
+  isInfo?: boolean
+  isEdit?: boolean
   fields: IColumns[]
   data: Array<IUser | INews | IPromotions | IDistricts | ITariff | IOrder>
-  onRemove: (id: string) => void
+  onRemove?: (id: string) => void
 }
 
 export interface IColumns {

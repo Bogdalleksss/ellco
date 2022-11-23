@@ -13,6 +13,7 @@
       "@/types/*" : ["./types/*"],
       "@/services/*" : ["./services/*"],
       "@/utils/*" : ["./utils/*"]
-    }
+    },
+    "allowSyntheticDefaultImports": true
   }
 }

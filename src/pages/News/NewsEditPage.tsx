@@ -14,8 +14,10 @@ import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/news/NewsSlice';
 import { Editor } from 'react-draft-wysiwyg';
-import { ContentState, convertFromHTML, convertToRaw, EditorState } from 'draft-js';
-import draftToHtml from 'draftjs-to-html';
+import { ContentState, convertToRaw, EditorState, convertFromRaw } from 'draft-js';
+import { decode } from 'html-entities';
+
+// const imagePlugin = createImagePlugin();
 
 // TODO Закодировать и декодировать HTML новости
 
@@ -40,7 +42,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
 
   const { id } = params;
 
-  const normalDescription = () => draftToHtml(convertToRaw(description.getCurrentContent()));
+  const normalDescription = () => convertToRaw(description.getCurrentContent());
 
   useEffect(() => {
     return () => {
@@ -56,13 +58,9 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     useEffect(() => {
       if (news.title) title.setValue(news.title);
       if (news.description) {
-        const blocksFromHTML = convertFromHTML(news.description);
-        const state = ContentState.createFromBlockArray(
-          blocksFromHTML.contentBlocks,
-          blocksFromHTML.entityMap
-        );
-
-        updateDescription(EditorState.createWithContent(state));
+        const replaced = news.description.replace(/&quot;/gi, '"');
+        console.log(JSON.parse(replaced));
+        updateDescription(EditorState.createWithContent(convertFromRaw(JSON.parse(replaced))));
       }
       if (news.annonce) annonce.setValue(news.annonce);
       if (news.image) updateImageURL(news.image);
@@ -77,7 +75,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
     const body = new FormData();
 
     body.append('title', title.value);
-    body.append('description', normalDescription());
+    body.append('description', `${JSON.stringify(normalDescription())}`);
     body.append('annonce', annonce.value);
     body.append('image', image || imageURL);
 
@@ -108,7 +106,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
       <EditLayout
         onSave={onSave}
         pending={status === STATUS.PENDING}
-        isValid={formData.isValid && !!imageURL && !editDataIsValid()}
+        isValid={formData.isValid && !!imageURL}
       >
         <ImageUpload
           onChange={(file) => {
