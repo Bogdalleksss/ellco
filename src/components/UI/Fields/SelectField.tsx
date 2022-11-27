@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { Box, MenuItem, OutlinedInput, Select, Typography } from '@mui/material';
+import { Box, MenuItem, OutlinedInput, Select, TextField, Typography } from '@mui/material';
 import { grey } from '@mui/material/colors';
+import { useEffect, useState } from 'react';
 
 interface IData {
   renderValue: string
@@ -15,9 +16,21 @@ interface IProps {
   placeholder: string
   onChange: (val: any) => void
   disabled: boolean
+  showSearch?: boolean
 }
 
-const SelectField: React.FC<IProps> = ({ data, value, label, placeholder, onChange, disabled, multiple }: IProps): JSX.Element => {
+const SelectField: React.FC<IProps> = ({ data, value, label, placeholder, onChange, disabled, multiple, showSearch }: IProps): JSX.Element => {
+  const [filteredData, updateFilteredData] = useState([]);
+  const [search, updateSearch] = useState('');
+
+  useEffect(() => {
+    if (data) updateFilteredData(data.list);
+  }, [data]);
+
+  useEffect(() => {
+    updateFilteredData(data.list.filter(item => item.title.includes(search)));
+  }, [search]);
+
   return (
     <Box>
       <Typography
@@ -44,11 +57,29 @@ const SelectField: React.FC<IProps> = ({ data, value, label, placeholder, onChan
         }}
         onChange={(event) => onChange(event.target.value)}
       >
+        {
+          showSearch &&
+            <Box
+              sx={{
+                width: '100%',
+                px: 1
+              }}
+            >
+              <TextField
+                sx={{
+                  width: '100%'
+                }}
+                value={search}
+                onChange={val => updateSearch(val.target.value)}
+                placeholder="Поиск..."
+              />
+            </Box>
+        }
         <MenuItem disabled value="">
           <em>{ placeholder }</em>
         </MenuItem>
         {
-          data.list.map(item => (
+          filteredData.map(item => (
             <MenuItem
               key={item._id}
               value={item._id}

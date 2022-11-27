@@ -137,6 +137,7 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
             renderValue: district?.title || '',
             list: districts.items
           }}
+          showSearch={true}
           value={district?._id || ''}
           label="Выберите район"
           placeholder="Район не выбран"
@@ -149,6 +150,7 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
             list: tariffs.items
           }}
           multiple
+          showSearch={true}
           value={selectedTariffs || []}
           label="Выберите тарифы"
           placeholder="Тарифы не выбраны"
