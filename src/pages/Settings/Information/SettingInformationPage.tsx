@@ -43,7 +43,7 @@ const SettingInformationPage: React.FC = (): JSX.Element => {
   const onSave = async () => {
     const body: IInformationBody = {
       email: email.value,
-      phone: phone.value.replaceAll(' ', '')
+      phone: phone.value.trim()
     };
 
     await dispatch(updateInformation(body));
