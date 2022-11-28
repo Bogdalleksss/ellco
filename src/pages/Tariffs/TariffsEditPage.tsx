@@ -122,6 +122,11 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
       for (const key in fields) {
         if (fields[key]) fields[key].setValue(tariff[key]);
       }
+      if (tariff.type) {
+        const newType = types.find(item => item.title.toLowerCase() === tariff.type);
+
+        updateTariffType(newType._id);
+      }
       if (tariff.tags && typeof tariff.tags === 'string') updateTags(tariff.tags.split(','));
       else if (Array.isArray(tariff.tags) && tariff.tags.length) updateTags(tariff.tags);
     }, [tariff]);
