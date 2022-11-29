@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Grid } from '@mui/material';
+import { Button, CircularProgress, Grid } from '@mui/material';
 import { IPropsLayout } from '@/types/index';
 import { useHistory } from 'react-router-dom';
 
@@ -29,17 +29,30 @@ const EditLayout: React.FC<IProps> = ({ children, onSave, pending, isValid = tru
         variant="contained"
         disableElevation
         sx={{
-          marginRight: 1
+          marginRight: 1,
+          width: '115px',
+          height: '35px'
         }}
         onClick={() => onSave()}
         disabled={pending || !isValid}
       >
-        Сохранить
+        { pending
+          ? <CircularProgress
+              sx={{
+                color: 'white'
+              }}
+              size={16}
+            />
+          : 'Сохранить' }
       </Button>
       <Button
         variant="outlined"
         onClick={() => history.goBack()}
         disabled={pending}
+        sx={{
+          width: '115px',
+          height: '35px'
+        }}
       >
         Отменить
       </Button>
