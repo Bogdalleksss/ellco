@@ -249,27 +249,27 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
             : <></>
         }
         {
-          [1, 2, 4].includes(tariffType)
-            ? <>
-              <EditField
-                label="Количество каналов"
-                type="number"
-                placeholder="Количество"
-                value={channelsCount.value || ''}
-                onChange={(val: string) => channelsCount.setValue(val)}
-                disabled={status === STATUS.PENDING}
-              />
-              <ChipsField
-                value={tags}
-                label="Теги"
-                placeholder="Добавьте теги"
-                onChange={(val) => updateTags(val)}
-                disabled={status === STATUS.PENDING}
-              />
-            </>
-            : <></>
+          [1, 2, 4].includes(tariffType) &&
+            <EditField
+              label="Количество каналов"
+              type="number"
+              placeholder="Количество"
+              value={channelsCount.value || ''}
+              onChange={(val: string) => channelsCount.setValue(val)}
+              disabled={status === STATUS.PENDING}
+            />
         }
 
+        {
+          [1, 2, 3, 4].includes(tariffType) &&
+            <ChipsField
+              value={tags}
+              label="Теги"
+              placeholder="Добавьте теги"
+              onChange={(val) => updateTags(val)}
+              disabled={status === STATUS.PENDING}
+            />
+        }
         {
           [3].includes(tariffType)
             ? <>
