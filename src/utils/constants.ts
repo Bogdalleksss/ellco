@@ -4,4 +4,4 @@ export const STATUS = {
   ERROR: 'error'
 };
 
-export const storageBaseUrl = 'https://api.dev-huriky-1.site/storage/';
+export const storageBaseUrl = 'https://api.ellco.ru/storage';
