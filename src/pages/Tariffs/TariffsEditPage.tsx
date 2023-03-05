@@ -15,6 +15,8 @@ import ChipsField from '@/components/UI/Fields/ChipsField';
 import { Checkbox, FormControlLabel } from '@mui/material';
 import { validatorPrice, validatorText } from '@/utils/validators';
 import { tariffsCreateOne, tariffsFetchOne, tariffsUpdateOne } from '@/store/tariffs/TariffsAsync';
+import { Editor } from 'react-draft-wysiwyg';
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
 
 const types = [
   {
@@ -48,6 +50,7 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
   const [tags, updateTags] = useState<string[]>([]);
   const [externalServices, updateExternalServices] = useState<string[]>([]);
   const [firstMonthFree, updateFirstMonthFree] = useState(false);
+  const [description, updateDescription] = useState(EditorState.createEmpty());
 
   const { item, status, error } = useAppSelector(state => state.tariffs);
   const tariff = item as ITariff;
@@ -127,6 +130,11 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
 
         updateTariffType(newType._id);
       }
+      if (tariff.description) {
+        const replaced = tariff.description.replace(/&quot;/gi, '"');
+
+        updateDescription(EditorState.createWithContent(convertFromRaw(JSON.parse(replaced))));
+      }
       if (tariff.tags && typeof tariff.tags === 'string') updateTags(tariff.tags.split(','));
       else if (Array.isArray(tariff.tags) && tariff.tags.length) updateTags(tariff.tags);
     }, [tariff]);
@@ -136,11 +144,14 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
     if (error) alert.error(error);
   }, [error]);
 
+  const normalDescription = () => convertToRaw(description.getCurrentContent());
+
   const onSave = async () => {
     const body: ITariff = {
       type: getTypeById(tariffType)?.title.toLowerCase(),
       category: 'internet',
       priceDisplayType: 'month',
+      description: `${JSON.stringify(normalDescription())}`,
       mobileMinutsDagestan: '',
       cityMinutsDagestan: '',
       title: title.value,
@@ -311,6 +322,26 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
             </>
             : <></>
         }
+        <Editor
+          editorState={description}
+          wrapperClassName="text-editor-wrapper"
+          editorClassName="text-editor-canvas"
+          onEditorStateChange={(editorState) => updateDescription(editorState)}
+          toolbar={{
+            options: ['blockType', 'list'],
+            blockType: {
+              inDropdown: false,
+              options: ['H3']
+            },
+            list: {
+              inDropdown: false,
+              className: undefined,
+              component: undefined,
+              dropdownClassName: undefined,
+              options: ['unordered']
+            }
+          }}
+        />
         <FormControlLabel
           control={
             <Checkbox

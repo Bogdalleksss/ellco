@@ -50,6 +50,7 @@ export interface ITariff {
   _id?: string
   title: string
   category?: string
+  description?: string
   type: string
   tags?: string | string[]
   price: number | null

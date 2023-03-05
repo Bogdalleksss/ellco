@@ -14,12 +14,7 @@ import { validatorText } from '@/utils/validators';
 import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/news/NewsSlice';
 import { Editor } from 'react-draft-wysiwyg';
-import { ContentState, convertToRaw, EditorState, convertFromRaw } from 'draft-js';
-import { decode } from 'html-entities';
-
-// const imagePlugin = createImagePlugin();
-
-// TODO Закодировать и декодировать HTML новости
+import { convertToRaw, EditorState, convertFromRaw } from 'draft-js';
 
 const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -59,7 +54,7 @@ const UsersEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX
       if (news.title) title.setValue(news.title);
       if (news.description) {
         const replaced = news.description.replace(/&quot;/gi, '"');
-        console.log(JSON.parse(replaced));
+
         updateDescription(EditorState.createWithContent(convertFromRaw(JSON.parse(replaced))));
       }
       if (news.annonce) annonce.setValue(news.annonce);

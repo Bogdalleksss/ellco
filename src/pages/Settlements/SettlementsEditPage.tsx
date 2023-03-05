@@ -3,7 +3,7 @@ import PageLayout from '@/layouts/PageLayout';
 import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { IDistricts, IPropsEdit, ISettlement } from '@/types/index';
+import { IDistricts, IPropsEdit, ISettlement, ITariff } from '@/types/index';
 import EditLayout from '@/layouts/EditLayout';
 import EditField from '@/components/UI/Fields/EditField';
 import { STATUS } from '@/utils/constants';
@@ -19,7 +19,14 @@ import useForm from 'react-hooks-form-validator';
 import { clearMeta } from '@/store/settlements/SettlementsSlice';
 import SelectField from '@/components/UI/Fields/SelectField';
 import { tariffsFetch } from '@/store/tariffs/TariffsAsync';
-import { promotionsCreateOne } from '@/store/propmotions/PromotionsAsync';
+import { grey } from '@mui/material/colors';
+import { IconButton, Typography } from '@mui/material';
+import { OpenWith } from '@mui/icons-material';
+import { ReactSortable } from 'react-sortablejs';
+
+interface ISort {
+  id: string
+}
 
 const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): JSX.Element => {
   const params = useParams();
@@ -31,6 +38,7 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
   });
   const [district, updateDistrict] = useState<IDistricts>();
   const [selectedTariffs, updateSelectedTariffs] = useState<string[]>([]);
+  const [sortTariffs, updateSortTariffs] = useState<ISort[]>([]);
   const [isPending, updateIsPending] = useState(false);
 
   const { title } = fields;
@@ -80,6 +88,12 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     updateIsPending(status === STATUS.PENDING && districts.status === STATUS.PENDING);
   }, [status, districts.status]);
 
+  useEffect(() => {
+    const sort: ISort[] = selectedTariffs.map((item) => ({ id: item }));
+
+    updateSortTariffs(sort);
+  }, [selectedTariffs]);
+
   const onSave = async () => {
     const body: ISettlement = {
       title: title.value,
@@ -107,12 +121,20 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
     }
   };
 
+  const sortList = (newState) => {
+    updateSelectedTariffs(newState.map(item => item.id));
+  };
+
   const getDistrictById = (_id) => {
     return districts.items.find(item => item._id === _id);
   };
 
   const getTariffsTitle = () => {
     return selectedTariffs.map(item => tariffs.items.find(tariff => tariff._id === item)?.title);
+  };
+
+  const getSelectedTariff = (id) => {
+    return tariffs.items.find(item => item._id === id);
   };
 
   return (
@@ -157,6 +179,54 @@ const SettlementsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit
           onChange={val => updateSelectedTariffs(val)}
           disabled={isPending}
         />
+
+        <div className="tariff-select-list">
+          {
+            !selectedTariffs.length &&
+              <Typography
+                sx={{
+                  color: grey[600],
+                  fontSize: 14,
+                  textAlign: 'center'
+                }}
+              >
+                Нет выбранных тарифов
+              </Typography>
+          }
+
+          <ReactSortable
+            className="tariff-select-sortable"
+            ghostClass="sortable-ghost"
+            chosenClass="sortable-chosen"
+            dragClass="sortable-drag"
+            list={sortTariffs}
+            setList={sortList}
+            handle=".drag-list"
+          >
+            {
+              selectedTariffs.map((tariffId) => {
+                const tariff: ITariff = getSelectedTariff(tariffId);
+
+                return (
+                  <div key={tariff._id} className="tariff-select-item">
+                    <Typography
+                      sx={{
+                        color: grey[800],
+                        fontSize: 14
+                      }}
+                    >
+                      { tariff.title }
+                    </Typography>
+
+                    <IconButton className="drag-list" aria-label="move">
+                      <OpenWith sx={{ fontSize: 18 }} />
+                    </IconButton>
+                  </div>
+                );
+              })
+            }
+          </ReactSortable>
+        </div>
       </EditLayout>
     </PageLayout>
   );
