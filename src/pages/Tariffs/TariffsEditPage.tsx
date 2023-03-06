@@ -50,6 +50,7 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
   const [tags, updateTags] = useState<string[]>([]);
   const [externalServices, updateExternalServices] = useState<string[]>([]);
   const [firstMonthFree, updateFirstMonthFree] = useState(false);
+  const [showInAllSettlements, updateShowInAllSettlements] = useState(false);
   const [description, updateDescription] = useState(EditorState.createEmpty());
 
   const { item, status, error } = useAppSelector(state => state.tariffs);
@@ -61,6 +62,7 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
       newPrice: {
         required: false
       },
+      priceDisplayCustom: validatorText,
       speedMbs: {
         required: [1, 2].includes(typeConfig)
       },
@@ -92,7 +94,8 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
     firstMinutePrice,
     kionServiceDescription,
     localTelephoneСonnectionsType,
-    mtsServiceDescription
+    mtsServiceDescription,
+    priceDisplayCustom
   } = fields;
 
   const { id } = params;
@@ -151,6 +154,7 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
       type: getTypeById(tariffType)?.title.toLowerCase(),
       category: 'internet',
       priceDisplayType: 'month',
+      priceDisplayCustom: priceDisplayCustom.value || 'мес.',
       description: `${JSON.stringify(normalDescription())}`,
       mobileMinutsDagestan: '',
       cityMinutsDagestan: '',
@@ -161,6 +165,7 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
       channelsCount: +channelsCount.value || null,
       firstMinutePrice: +firstMinutePrice.value || null,
       firstMonthFree,
+      showInAllSettlements,
       localTelephoneСonnectionsType: localTelephoneСonnectionsType.value || '',
       kionServiceDescription: kionServiceDescription.value || '',
       mtsServiceDescription: mtsServiceDescription.value || '',
@@ -232,6 +237,13 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
           type="number"
           value={newPrice.value || ''}
           onChange={(val: string) => newPrice.setValue(val)}
+          disabled={status === STATUS.PENDING}
+        />
+        <EditField
+          label="За какой период цена"
+          placeholder="мес."
+          value={priceDisplayCustom.value || ''}
+          onChange={(val: string) => priceDisplayCustom.setValue(val)}
           disabled={status === STATUS.PENDING}
         />
         {
@@ -350,6 +362,15 @@ const TariffsEditPage: React.FC<IPropsEdit> = ({ type = 'EDIT' }: IPropsEdit): J
             />
           }
           label="Первый месяц беплатно"
+        />
+        <FormControlLabel
+          control={
+            <Checkbox
+              value={showInAllSettlements}
+              onChange={(val) => updateShowInAllSettlements(val.target.checked)}
+            />
+          }
+          label="Отобразить этот тариф во всех городах"
         />
       </EditLayout>
     </PageLayout>

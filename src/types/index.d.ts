@@ -56,7 +56,9 @@ export interface ITariff {
   price: number | null
   newPrice?: number | null
   firstMonthFree?: boolean
+  showInAllSettlements?: boolean
   priceDisplayType?: string
+  priceDisplayCustom?: string
   speedMbs?: number | null
   channelsCount?: number | null
   mobileMinutsDagestan?: string
